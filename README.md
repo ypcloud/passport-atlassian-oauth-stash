@@ -27,7 +27,7 @@ accepts these credentials and calls `done` providing a user, as well as
             consumerKey:"atlassian-oauth-sample",
             consumerSecret:"<RSA private key>",
         },
-      function(accessToken, refreshToken, profile, done) {
+      function(token, tokenSecret, profile, done) {
         User.findOrCreate({ userid: profile.id }, function (err, user) {
           return done(err, user);
         });
