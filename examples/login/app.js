@@ -9,7 +9,7 @@ var express = require('express'),
 //   serialize users into and deserialize users out of the session.  Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete Facebook profile is serialized
+//   have a database of user records, the complete Atlassian profile is serialized
 //   and deserialized.
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -35,6 +35,8 @@ var RsaPrivateKey = "-----BEGIN RSA PRIVATE KEY-----\n" +
     "KJHHCqrS1V+D5Q89x5wIRHKxE5UMTc0JNa554OxwFORX\n" +
     "-----END RSA PRIVATE KEY-----";
 
+//Use this public key when configuring the Incoming authentication in the Applink in the 
+//Atlassian application.
 var RsaPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
     "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDizE4gQP5nPQhzof/Vp2U2DDY3\n" +
     "UY/Gxha2CwKW0URe7McxtnmECrZnT1n/YtfrrCNxY5KMP4o8hMrxsYEe05+1ZGFT\n" +
@@ -43,9 +45,9 @@ var RsaPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
     "-----END PUBLIC KEY-----";
 
 
-// Use the FacebookStrategy within Passport.
+// Use the AtlassianOauthStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and Facebook
+//   credentials (in this case, a token, tokenSecret, and Atlassian
 //   profile), and invoke a callback with a user object.
 passport.use(new AtlassianOAuthStrategy({
         applicationURL:"http://localhost:2990/jira",
@@ -53,13 +55,13 @@ passport.use(new AtlassianOAuthStrategy({
         consumerSecret:RsaPrivateKey,
         callbackURL:'http://localhost:5000/auth/atlassian-oauth/callback'
     },
-    function (accessToken, refreshToken, profile, done) {
+    function (token, tokenSecret, profile, done) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
 
-            // To keep the example simple, the user's Facebook profile is returned to
+            // To keep the example simple, the user's Atlassian profile is returned to
             // represent the logged-in user.  In a typical application, you would want
-            // to associate the Facebook account with a user record in your database,
+            // to associate the Atlassian account with a user record in your database,
             // and return that user instead.
             return done(null, profile);
         });
@@ -100,19 +102,19 @@ app.get('/login', function (req, res) {
     res.render('login', { user:req.user });
 });
 
-// GET /auth/facebook
+// GET /auth/atlassian-oauth
 //   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Facebook authentication will involve
-//   redirecting the user to facebook.com.  After authorization, Facebook will
-//   redirect the user back to this application at /auth/facebook/callback
-app.get('/auth/atlassian',
+//   request.  The first step in Atlassian authentication will involve
+//   redirecting the user to the atlassian Oauth authorisation page.  After authorization, the Atlassian app will
+//   redirect the user back to this application at /auth/atlassian-oauth
+app.get('/auth/atlassian-oauth',
     passport.authenticate('atlassian-oauth'),
     function (req, res) {
-        // The request will be redirected to Facebook for authentication, so this
+        // The request will be redirected to the Atlassian app for authentication, so this
         // function will not be called.
     });
 
-// GET /auth/facebook/callback
+// GET /auth/atlassian-oauth/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
