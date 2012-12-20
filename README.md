@@ -1,4 +1,4 @@
-# Passport-Atlassian OAuth
+# Passport Atlassian OAuth
 
 [Passport](http://passportjs.org/) strategy for authenticating with [Atlassian Applications](http://www.atlassian.com/)
 using the OAuth 1.0 API.
