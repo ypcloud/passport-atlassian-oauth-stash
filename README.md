@@ -74,7 +74,7 @@ For a complete, working example, refer to the [login example](https://bitbucket.
 
 Currently this implementation only works with JIRA.  Unfortunately there isn't yet an Atlassian cross-product API to retrieve
 user details to populate the passport profile that's the same in all applications. Other Atlassian applications may
-be added at a later date (changing the REST calles in strategy.js ```userProfile()```).
+be added at a later date (changing the REST calls in strategy.js ```userProfile()```).
 
 ## License
 
