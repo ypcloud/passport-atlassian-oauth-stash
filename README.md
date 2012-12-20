@@ -26,7 +26,7 @@ accepts these credentials and calls `done` providing a user, as well as
             applicationURL:"http://localhost:2990/jira",
             consumerKey:"atlassian-oauth-sample",
             consumerSecret:"<RSA private key>",
-        },
+      },
       function(token, tokenSecret, profile, done) {
         User.findOrCreate({ userid: profile.id }, function (err, user) {
           return done(err, user);
