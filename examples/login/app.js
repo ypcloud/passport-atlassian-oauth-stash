@@ -52,8 +52,7 @@ var RsaPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
 passport.use(new AtlassianOAuthStrategy({
         applicationURL:"http://localhost:2990/jira",
         consumerKey:"atlassian-oauth-sample",
-        consumerSecret:RsaPrivateKey,
-        callbackURL:'http://localhost:5000/auth/atlassian-oauth/callback'
+        consumerSecret:RsaPrivateKey
     },
     function (token, tokenSecret, profile, done) {
         // asynchronous verification, for effect...
