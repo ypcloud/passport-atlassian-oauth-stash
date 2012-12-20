@@ -55,6 +55,16 @@ application:
             res.redirect('/');
         });
 
+#### Atlassian Application Setup
+
+Configure an [application link](https://confluence.atlassian.com/display/JIRA/Configuring+Application+Links) in the 
+Atlassian Application pointing back to your NodeJS app.
+
+In this application link  configure [OAuth Authentication](https://confluence.atlassian.com/display/JIRA/Configuring+OAuth+Authentication+for+an+Application+Link) 
+for incoming authentication.  Set the `consumer key` to the same value that you used in your AtlassianOAuthStrategy.
+Provide a matching RSA public key for the private key in use in your NodeJS application and finally configure a callback
+url that will redirect to `<NodeJS base URL>/auth/atlassian-oauth/callback` (given the example above). 
+
 
 ## Examples
 
