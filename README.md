@@ -24,6 +24,7 @@ accepts these credentials and calls `done` providing a user, as well as
 
     passport.use(new AtlassianOAuthStrategy({
             applicationURL:"http://localhost:2990/jira",
+            callbackURL:"http://localhost:5000/auth/atlassian-oauth/callback",
             consumerKey:"atlassian-oauth-sample",
             consumerSecret:"<RSA private key>",
       },
