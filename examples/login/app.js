@@ -2,7 +2,7 @@ var express = require('express'),
     http = require('http'),
     passport = require('passport'),
     util = require('util'),
-    AtlassianOAuthStrategy = require('passport-atlassian-oauth').Strategy;
+    AtlassianOAuthStrategy = require('../../').Strategy;
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -51,6 +51,7 @@ var RsaPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
 //   profile), and invoke a callback with a user object.
 passport.use(new AtlassianOAuthStrategy({
         applicationURL:"http://localhost:2990/jira",
+        callbackURL:"http://localhost:5000/auth/atlassian-oauth/callback",
         consumerKey:"atlassian-oauth-sample",
         consumerSecret:RsaPrivateKey
     },
